@@ -1,0 +1,208 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #122c34;
+    background: #424651;
+}
+
+/* Malha quadriculada cobre a tela, mas não intercepta o mouse */
+#malha {
+    position: fixed;
+    inset: 0; /* cobre a tela inteira, top:0; bottom:0; left:0; right:0 */
+    display: grid;
+    grid-template-rows: repeat(auto-fill, 80px);
+    pointer-events: none; /* para não bloquear cliques */
+    z-index: 0;
+}
+
+.quadrado {
+    width: 80px;
+    height: 80px;
+    border: 1px solid transparent; /* começa transparente */
+    background: transparent;
+    pointer-events: none;
+    animation: pulse-borda 4s ease-in-out infinite;
+}
+
+
+.quadrado.aceso {
+    background: #21fa90;
+    animation: fadeOut 2s forwards;
+}
+
+
+/* Conteúdo principal */
+.conteudo {
+    position: relative;
+    z-index: 1;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+}
+
+.p1, .p2 {
+    color: #e7ecef;
+    margin: 0;
+    padding: 0;
+}
+
+/* Alinha a .p1 (usuários online) ao centro */
+#usuarios_online {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+/* Coloca o contador (p2) à direita do campo de mensagem */
+#contador_caracteres {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #e7ecef;
+    text-align: center;
+}
+
+
+.formulario input[type="text"] {
+    padding: 12px 15px;
+    margin: 10px 5px;
+    width: 250px;
+    border: 1px solid #0c8346;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 12px 3px #21fa90;
+}
+
+input[type="text"]:focus {
+    border-color: #0c8346;
+    outline: none;
+    box-shadow: 0 0 12px 3px #21fa90; /*       !!! RESOLVER ISSO !!!        */
+}
+
+button {
+    background-color: #21fa90;
+    color: #122c34;
+    border: none;
+    padding: 12px 20px;
+    margin: 10px 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.mensagem-linha {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.mensagem-linha input[type="text"] {
+    flex: 1;
+    min-width: 200px;
+}
+
+
+button:hover {
+    background-color: #0c8346;
+    transform: translateY(-3px);
+}
+
+.botoes {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+h3 {
+    margin-top: 30px;
+    font-size: 1.5rem;
+    color: #e7ecef;
+}
+
+#lista_mensagens {
+    list-style: none;
+    margin-top: 15px;
+    width: 100%;
+    max-width: 600px;
+    padding: 0 20px;
+}
+
+#lista_mensagens li {
+    background: #e7ecef;
+    border-left: 5px solid #0c8346;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    box-shadow: 0 0 6px 3px #21fa91d0;
+}
+
+/* Animações */
+
+@keyframes fadeOut {
+    0% {
+        background-color: #21fa90;
+        opacity: 1;
+    }
+    100% {
+        background-color: transparent;
+        opacity: 0;
+    }
+}
+
+
+@keyframes pulse-borda {
+    0%, 40%, 100% {
+        border-color: transparent;
+    }
+    50% {
+        border-color: #21fa90;
+    }
+    60% {
+        border-color: transparent;
+    }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+    .formulario input[type="text"] {
+        width: 100%;
+    }
+
+    .botoes {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    button {
+        width: 100%;
+    }
+}
